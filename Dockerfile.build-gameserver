@@ -1,0 +1,15 @@
+FROM maven:3.6.3-jdk-8
+ARG GAMESERVER_GIT_REF
+ENV GAMESERVER_GIT_REPO_URL=https://github.com/e-ucm/formalz-game.git
+ENV GAMESERVER_GIT_REF=${GAMESERVER_GIT_REF:-dev}
+RUN set -ex; \
+    git clone --depth 1 --branch ${GAMESERVER_GIT_REF} ${GAMESERVER_GIT_REPO_URL} /app > /dev/null 2>&1; \
+    cd /app/GameServer; \
+    mvn package -DskipTests; \
+# package
+    mkdir -p "/formalz-gameserver_${GAMESERVER_GIT_REF}"; \
+    mv target/formalz-gameserver.jar "/formalz-gameserver_${GAMESERVER_GIT_REF}"; \
+    mv /app/GameServer/adaptiveDifficultyScript.js "/formalz-gameserver_${GAMESERVER_GIT_REF}"; \
+    tar -czvf "/formalz-gameserver_${GAMESERVER_GIT_REF}.tar.gz" "/formalz-gameserver_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
+    rm -fr "/formalz-gameserver_${GAMESERVER_GIT_REF}" /app /tmp/*; \
+    rm -fr /app /tmp/* /root/.m2/repository/*;

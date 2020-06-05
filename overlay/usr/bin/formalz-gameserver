@@ -1,0 +1,45 @@
+#!/bin/bash
+set -eo pipefail
+[[ "${DEBUG}" == "true" ]] && set -x
+
+cat<<EOF > /app/settings.json
+{
+  "haskellTargetURL": "${FCHECKER_URL:-http://fchecker}",
+  "haskellPort"  : ${FCHECKER_PORT:-8080},
+  "haskellMethod": "${FCHECKER_METHOD:-compare}",
+  "haskellTimeout": ${FCHECKER_TIMEOUT:-10000},
+  
+  "databaseDriver": "com.mysql.jdbc.Driver",
+  "databaseUsername": "${DB_USERNAME}",
+  "databasePassword": "${DB_PASSWORD}",
+  "databaseURLPrefix": "jdbc:mysql:\/\/",
+  "databaseHostURL": "${DB_HOST}",
+  "databaseName": "${DB_DATABASE}",
+  "databaseUseSSL": false,
+  
+  "connectionPort": ${GAMESERVER_PORT},
+  
+  "tlsEnabled": ${GAMESERVER_TLS_ENABLED:-false},
+  "serverStoreType": "JKS",
+  "serverKeyStore": "${GAMESERVER_KEY_STORE_PATH:-keystore.jks}",
+  "serverStorePassword": "${GAMESERVER_KEY_STORE_PASSWORD:-storepassword}",
+  "serverKeyPassword": "${GAMESERVER_KEY_PASSWORD:-keypassword}",
+
+  "maxSessionCreatedDifference": ${GAMESERVER_MAX_SESSION_CREATED_DIFFERENCE:-2147483647},
+  "sessionWaitTime": ${GAMESERVER_WAIT_TIME:-5000},
+
+  "analyticsEnabled": ${ANALYTICS_ENABLED:-false},
+  "analyticsServerHost": "${ANALYTICS_SERVER_HOST:-analytics.example.com}",
+  "analyticsServerPort": ${ANALYTICS_SERVER_PORT:-443},
+  "analyticsServerSecureConnection": ${ANALYTICS_SERVER_SECURE:-true}
+}
+EOF
+
+case ${1} in
+  run)
+    exec java -jar /app/formalz-gameserver.jar
+    ;;
+  *)
+    exec $@
+    ;;
+esac
