@@ -22,8 +22,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         && apt-get clean \
         && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENTRYPOINT ["/usr/local/bin/tini", "--", "/usr/bin/entrypoint"]
-
 COPY ./overlay /
 
 ENV FORMALZ_VERSION 1.0.0
@@ -42,11 +40,10 @@ RUN set -ex; \
     useradd -s /bin/bash formalz; \
     chown formalz: -R /app; \
     apt-get purge -y --auto-remove $buildDeps; \
-    chown www-data: -R /app; \
     rm -fr /tmp/*;
 
 WORKDIR /app
 
 USER formalz
-
-CMD ["/usr/bin/formalz-gameserver", "run"]
+ENTRYPOINT ["/usr/local/bin/tini", "--", "/usr/bin/entrypoint"]
+CMD ["/usr/bin/server", "start"]
