@@ -24,10 +24,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY ./overlay /
 
-ENV FORMALZ_VERSION 1.0.0
+ENV FORMALZ_VERSION 1.0.1
 ENV FORMALZ_DOWNLOAD_BASE_URL https://github.com/e-ucm/formalz-game/releases/download/${FORMALZ_VERSION}
 ENV FORMALZ_DOWNLOAD_URL_GAMESERVER ${FORMALZ_DOWNLOAD_BASE_URL}/formalz-gameserver_${FORMALZ_VERSION}.tar.gz
-ENV FORMALZ_GAMESERVER_SHA256 77891a3d37ab9ec96c3db260b16cd71697ffcffce41181eca47ed3bef3de0a3f
+ENV FORMALZ_GAMESERVER_SHA256 aeb8a0472ff1b2f4b74a625728f6b5fbf3957423b8920067d061d31ec7c96dea
 
 RUN set -ex; \
     buildDeps='curl'; \
