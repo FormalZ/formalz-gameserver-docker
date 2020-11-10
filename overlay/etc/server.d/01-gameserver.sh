@@ -14,10 +14,11 @@ cat<<EOF > /app/settings.json
   "databaseDriver": "com.mysql.jdbc.Driver",
   "databaseUsername": "${FORMALZ_DB_USERNAME}",
   "databasePassword": "${FORMALZ_DB_PASSWORD}",
-  "databaseURLPrefix": "jdbc:mysql:\/\/",
+  "databaseURLPrefix": "jdbc:mysql://",
   "databaseHostURL": "${FORMALZ_DB_HOST}",
   "databaseName": "${FORMALZ_DB_DATABASE}",
   "databaseUseSSL": false,
+  "databaseURL": "${FORMALZ_DB_JDBC_URL}",
 
   "connectionPort": ${FORMALZ_GAMESERVER_PORT},
 

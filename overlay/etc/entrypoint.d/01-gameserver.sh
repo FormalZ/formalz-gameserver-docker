@@ -28,6 +28,9 @@ declare -x FORMALZ_DB_USERNAME
 declare -x FORMALZ_DB_PASSWORD
 [[ -z "${FORMALZ_DB_PASSWORD}" ]] && FORMALZ_DB_PASSWORD="db-secret"
 
+declare -x FORMALZ_DB_JDBC_URL
+[[ -z "${FORMALZ_DB_PASSWORD}" ]] && FORMALZ_DB_JDBC_URL="jdbc:mysql://localhost/formalz?useSSL=false"
+
 ## Game server configuration
 
 declare -x FORMALZ_GAMESERVER_PORT
