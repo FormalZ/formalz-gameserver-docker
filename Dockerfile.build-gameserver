@@ -10,6 +10,7 @@ RUN set -ex; \
     mkdir -p "/formalz-gameserver_${GAMESERVER_GIT_REF}"; \
     mv target/formalz-gameserver.jar "/formalz-gameserver_${GAMESERVER_GIT_REF}"; \
     mv /app/GameServer/adaptiveDifficultyScript.js "/formalz-gameserver_${GAMESERVER_GIT_REF}"; \
-    tar -czvf "/formalz-gameserver_${GAMESERVER_GIT_REF}.tar.gz" "/formalz-gameserver_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
+    mkdir -p /output; \
+    tar -czvf "/output/formalz-gameserver_${GAMESERVER_GIT_REF}.tar.gz" "/formalz-gameserver_${GAMESERVER_GIT_REF}" > /dev/null 2>&1; \
     rm -fr "/formalz-gameserver_${GAMESERVER_GIT_REF}" /app /tmp/*; \
     rm -fr /app /tmp/* /root/.m2/repository/*;
