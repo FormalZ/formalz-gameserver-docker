@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-slim
+FROM openjdk:11-jdk-slim
 
 # grab tini for signal processing and zombie killing
 ENV TINI_VERSION v0.18.0
