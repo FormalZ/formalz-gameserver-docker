@@ -2,10 +2,8 @@
 set -eo pipefail
 [[ "${DEBUG}" == "true" ]] && set -x
 
-if [[ -z "${ENTRYPOINT_INITIALIZED}" ]]
-then
-  for FILE in $(find /etc/entrypoint.d -iname \*.sh | sort)
-  do
+if [[ -z "${ENTRYPOINT_INITIALIZED}" ]]; then
+  for FILE in $(find /etc/entrypoint.d -iname \*.sh | sort); do
     source ${FILE}
   done
 fi
@@ -20,7 +18,7 @@ case ${1} in
 
     shift;
     echo "Starting gameserver..."
-    exec java -jar /app/formalz-gameserver.jar ${@}
+    exec java ${JAVA_OPTS} -jar /app/formalz-gameserver.jar ${@}
     ;;
   *)
     exec $@

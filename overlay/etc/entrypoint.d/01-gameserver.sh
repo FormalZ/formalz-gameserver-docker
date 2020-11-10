@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+declare -x JAVA_OPTS
+[[ -z "${JAVA_OPTS}" ]] && JAVA_OPTS=""
+
 # Fchecker config
 
 declare -x FORMALZ_FCHECKER_URL
