@@ -4,6 +4,20 @@
 set -eo pipefail
 [[ "${DEBUG}" == "true" ]] && set -x
 
+old_ifs=$IFS
+IFS=","
+count=0;
+hosts=""
+for h in $FORMALZ_TRUSTED_PROXY_IPS; do
+  separator=""
+  if [[ $count -gt 0 ]]; then
+    separator=","
+  fi
+  hosts="${hosts}${separator}\"${h}\""
+  ((count=count+1))
+done
+IFS=$old_ifs
+
 cat<<EOF > /app/settings.json
 {
   "haskellTargetURL": "${FORMALZ_FCHECKER_URL}",
@@ -11,7 +25,10 @@ cat<<EOF > /app/settings.json
   "haskellMethod": "${FORMALZ_FCHECKER_METHOD}",
   "haskellTimeout": ${FORMALZ_FCHECKER_TIMEOUT},
 
-  "databaseDriver": "com.mysql.jdbc.Driver",
+  "trustedProxyIps": [${hosts}],
+  "workerThreadNumber": ${FORMALZ_WORKER_THREAD_NUMBER},
+
+  "databaseDriver": "${FORMALZ_DB_DRIVER}",
   "databaseUsername": "${FORMALZ_DB_USERNAME}",
   "databasePassword": "${FORMALZ_DB_PASSWORD}",
   "databaseURLPrefix": "jdbc:mysql://",
@@ -19,6 +36,8 @@ cat<<EOF > /app/settings.json
   "databaseName": "${FORMALZ_DB_DATABASE}",
   "databaseUseSSL": false,
   "databaseURL": "${FORMALZ_DB_JDBC_URL}",
+  "databaseMinPoolSize": ${FORMALZ_DB_MIN_POOL_SIZE},
+  "databaseMaxPoolSize": ${FORMALZ_DB_MAX_POOL_SIZE},
 
   "connectionPort": ${FORMALZ_GAMESERVER_PORT},
 

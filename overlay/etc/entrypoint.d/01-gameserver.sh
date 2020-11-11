@@ -17,10 +17,23 @@ declare -x FORMALZ_FCHECKER_METHOD
 declare -x FORMALZ_FCHECKER_TIMEOUT
 [[ -z "${FORMALZ_FCHECKER_TIMEOUT}" ]] && FORMALZ_FCHECKER_TIMEOUT="10000"
 
+## Trusted proxies
+
+declare -x FORMALZ_TRUSTED_PROXY_IPS
+[[ -z "${FORMALZ_TRUSTED_PROXY_IPS}" ]] && FORMALZ_TRUSTED_PROXY_IPS=""
+
+## Worker Threads
+
+declare -x FORMALZ_WORKER_THREAD_NUMBER
+[[ -z "${FORMALZ_WORKER_THREAD_NUMBER}" ]] && FORMALZ_WORKER_THREAD_NUMBER="2"
+
 ## DB configuration
 
 declare -x FORMALZ_DB_HOST
 [[ -z "${FORMALZ_DB_HOST}" ]] && FORMALZ_DB_HOST="localhost"
+
+declare -x FORMALZ_DB_DRIVER
+[[ -z "${FORMALZ_DB_DRIVER}" ]] && FORMALZ_DB_DRIVER="com.mysql.jdbc.Driver"
 
 declare -x FORMALZ_DB_DATABASE
 [[ -z "${FORMALZ_DB_DATABASE}" ]] && FORMALZ_DB_DATABASE="formalz"
@@ -33,6 +46,12 @@ declare -x FORMALZ_DB_PASSWORD
 
 declare -x FORMALZ_DB_JDBC_URL
 [[ -z "${FORMALZ_DB_PASSWORD}" ]] && FORMALZ_DB_JDBC_URL="jdbc:mysql://localhost/formalz?useSSL=false"
+
+declare -x FORMALZ_DB_MIN_POOL_SIZE
+[[ -z "${FORMALZ_DB_MIN_POOL_SIZE}" ]] && FORMALZ_DB_MIN_POOL_SIZE="2"
+
+declare -x FORMALZ_DB_MAX_POOL_SIZE
+[[ -z "${FORMALZ_DB_MAX_POOL_SIZE}" ]] && FORMALZ_DB_MAX_POOL_SIZE="8"
 
 ## Game server configuration
 
